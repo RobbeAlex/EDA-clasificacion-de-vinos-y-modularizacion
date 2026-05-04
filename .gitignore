@@ -1,0 +1,22 @@
+# Entornos virtuales (el más importante para no subir megas de librerías)
+venv/
+env/
+.env
+
+# Archivos de Python (compilados y caché)
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Datos y Modelos (archivos pesados o generados)
+# Generalmente no quieres subir el dataset si es muy grande, 
+# aunque para esta tarea pequeña podrías subirlo o ignorarlo:
+data/winequality-red.csv
+models/*.pkl
+models/*.joblib
+
+# Jupyter Notebooks (archivos temporales de ejecución)
+.ipynb_checkpoints
+
+# VS Code (configuraciones locales del editor)
+.vscode/
