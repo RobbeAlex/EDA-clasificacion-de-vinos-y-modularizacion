@@ -7,8 +7,13 @@ from sklearn.svm import SVC
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
 
 def entrenar():
+    base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    ruta_csv = os.path.join(base_dir, 'data', 'winequality-red.csv')
+    ruta_models_dir = os.path.join(base_dir, 'models')
+    ruta_modelo = os.path.join(ruta_models_dir, 'mejor_modelo.pkl')
+
     # 1. Cargar los datos
-    df = pd.read_csv('data/winequality-red.csv', sep=',')
+    df = pd.read_csv(ruta_csv, sep=',')
     df.columns = df.columns.str.strip()
     
     # Limpieza: eliminar columna Id si existe para no afectar el modelo
@@ -37,7 +42,7 @@ def entrenar():
         model.fit(X_train, y_train)
         y_pred = model.predict(X_test)
         
-        # 4. Calcular métricas (accuracy, precision, recall, F1)[cite: 1]
+        # 4. Calcular métricas (accuracy, precision, recall, F1)
         # Se usa average='weighted' porque es un problema multiclase
         acc = accuracy_score(y_test, y_pred)
         prec = precision_score(y_test, y_pred, average='weighted', zero_division=0)
@@ -56,13 +61,13 @@ def entrenar():
             mejor_modelo = model
             nombre_mejor_modelo = nombre
 
-    # 5. Guardar el mejor modelo[cite: 1]
-    if not os.path.exists('models'):
-        os.makedirs('models')
+    # 5. Guardar el mejor modelo
+    if not os.path.exists(ruta_models_dir):
+        os.makedirs(ruta_models_dir)
     
-    joblib.dump(mejor_modelo, 'models/mejor_modelo.pkl')
+    joblib.dump(mejor_modelo, ruta_modelo)
     print(f"\n--- Proceso Finalizado ---")
-    print(f"El mejor modelo fue '{nombre_mejor_modelo}' y ha sido guardado en models/mejor_modelo.pkl")
+    print(f"El mejor modelo fue '{nombre_mejor_modelo}' y ha sido guardado en {ruta_modelo}")
 
 if __name__ == "__main__":
     entrenar()

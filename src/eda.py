@@ -40,7 +40,8 @@ def realizar_eda(df):
     plt.show()
 
 if __name__ == "__main__":
-    ruta = 'data/winequality-red.csv'
+    base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    ruta = os.path.join(base_dir, 'data', 'winequality-red.csv')
     if os.path.exists(ruta):
         datos = cargar_datos(ruta)
         realizar_eda(datos)
